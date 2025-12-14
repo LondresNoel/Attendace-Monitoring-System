@@ -35,7 +35,7 @@ const studentSchema = new mongoose.Schema(
   {
     // automatic nga createdAt ngan updatedAt
     timestamps: true,
-  }
+  } 
 );
 
 // pag create han Student model
