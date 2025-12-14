@@ -13,6 +13,7 @@ router.get("/", getAllStudents);
 // pag create hin bag-o nga estudyante
 router.post("/", createStudent);
 
+// pag delete hin estudyante kay bugo na
 router.delete("/:studentId", deleteStudent);
 
 export default router;
