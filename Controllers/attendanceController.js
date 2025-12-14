@@ -5,10 +5,10 @@ import { successResponse, errorResponse } from "../helpers/responseHelper.js";
 // pag mark han attendance han estudyante
 export const markAttendance = async (req, res) => {
   try {
-    // pag extract han data tikang ha request body
+    // pag kuha han data tikang ha request body
     const { studentId, date, status } = req.body;
 
-    // simple validation
+    // validation
     if (!studentId || !date || !status) {
       errorResponse(res, 400, "Student ID, date, and status are required");
       return;
@@ -21,14 +21,10 @@ export const markAttendance = async (req, res) => {
       return;
     }
 
-    // pag check kon may attendance na hiya para hito nga adlaw
-    const existingAttendance = await Attendance.findOne({
-      studentId,
-      date,
-    });
-
+    // pag check kon may attendance na para hini nga adlaw
+    const existingAttendance = await Attendance.findOne({ studentId, date });
     if (existingAttendance) {
-      errorResponse(res, 400, "Attendance already recorded for this date");
+      errorResponse(res, 400, "Attendance already recorded");
       return;
     }
 
@@ -42,69 +38,6 @@ export const markAttendance = async (req, res) => {
     // pag send hin success response
     successResponse(res, 201, "Attendance recorded successfully", attendance);
   } catch (error) {
-    errorResponse(
-      res,
-      500,
-      "An error occurred while recording attendance",
-      error
-    );
-  }
-};
-
-// pag kuha han attendance pinaagi han date
-export const getAttendanceByDate = async (req, res) => {
-  try {
-    // pag extract han date tikang ha request parameters
-    const { date } = req.params;
-
-    if (!date) {
-      errorResponse(res, 400, "Date is required");
-      return;
-    }
-
-    const attendanceRecords = await Attendance.find({ date });
-
-    successResponse(
-      res,
-      200,
-      "Attendance records retrieved successfully",
-      attendanceRecords
-    );
-  } catch (error) {
-    errorResponse(
-      res,
-      500,
-      "An error occurred while retrieving attendance records",
-      error
-    );
-  }
-};
-
-// pag kuha han attendance han usa nga estudyante
-export const getAttendanceByStudent = async (req, res) => {
-  try {
-    // pag extract han studentId tikang ha request parameters
-    const { studentId } = req.params;
-
-    if (!studentId) {
-      errorResponse(res, 400, "Student ID is required");
-      return;
-    }
-
-    const attendanceRecords = await Attendance.find({ studentId });
-
-    successResponse(
-      res,
-      200,
-      "Student attendance retrieved successfully",
-      attendanceRecords
-    );
-  } catch (error) {
-    errorResponse(
-      res,
-      500,
-      "An error occurred while retrieving student attendance",
-      error
-    );
+    errorResponse(res, 500, "Error recording attendance", error);
   }
 };

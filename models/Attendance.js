@@ -1,36 +1,36 @@
 import mongoose from "mongoose";
 
-// define Attendance schema
+// pag define han Attendance schema
 const attendanceSchema = new mongoose.Schema(
   {
-    // reference to the student (using studentId)
+    // studentId para hibaroan kun hin-o an estudyante
     studentId: {
       type: String,
       required: [true, "Student ID is required"],
       trim: true,
     },
 
-    // date of attendance
+    // petsa han attendance
     date: {
       type: String,
       required: [true, "Date is required"],
       trim: true,
     },
 
-    // attendance status
+    // status han attendance
     status: {
       type: String,
-      required: [true, "Attendance status is required"],
       enum: ["Present", "Absent", "Late"],
+      required: [true, "Attendance status is required"],
     },
   },
   {
-    // automatically add createdAt and updatedAt
+    // automatic timestamps
     timestamps: true,
   }
 );
 
-// create Attendance model for the database
+// pag create han Attendance model
 const Attendance = mongoose.model("Attendance", attendanceSchema);
 
 export default Attendance;

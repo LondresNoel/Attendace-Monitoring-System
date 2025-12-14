@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
-// define Student schema
+// pag define han Student schema
 const studentSchema = new mongoose.Schema(
   {
-    // unique student identifier
+    // unique nga student ID
     studentId: {
       type: String,
       required: [true, "Student ID is required"],
@@ -11,21 +11,21 @@ const studentSchema = new mongoose.Schema(
       trim: true,
     },
 
-    // full name of the student
+    // bug-os nga ngaran han estudyante
     fullName: {
       type: String,
       required: [true, "Full name is required"],
       trim: true,
     },
 
-    // course or program (e.g., BSIT)
+    // kurso han estudyante (e.g. BSIT)
     course: {
       type: String,
       required: [true, "Course is required"],
       trim: true,
     },
 
-    // year level (e.g., 1st Year, 2nd Year)
+    // year level han estudyante
     yearLevel: {
       type: String,
       required: [true, "Year level is required"],
@@ -33,13 +33,12 @@ const studentSchema = new mongoose.Schema(
     },
   },
   {
-    // automatically add createdAt and updatedAt
+    // automatic nga createdAt ngan updatedAt
     timestamps: true,
   }
 );
 
-// create Student model for the database
+// pag create han Student model
 const Student = mongoose.model("Student", studentSchema);
 
 export default Student;
-

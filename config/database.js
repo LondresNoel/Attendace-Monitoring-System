@@ -1,14 +1,17 @@
 import mongoose from "mongoose";
 
-// pag connect ha database na function
+// function para mag connect ha MongoDB
 const connectDB = async () => {
   try {
-    // pag connect ha mongoose gamit an MONOGODB_URI tikang ha environment variables
+    // pag connect gamit an MONGODB_URI tikang ha .env
     const conn = await mongoose.connect(process.env.MONGODB_URI);
+
+    // kon successful an connection
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
+    // kon may error ha pag connect
     console.error(`Error: ${error.message}`);
-    process.exit(1);
+    process.exit(1); // pag stop han app
   }
 };
 
